@@ -2,9 +2,8 @@ const express= require('express');
 const dotenv = require('dotenv');
 const mongo = require('./mongodb.js');
 const hbs = require('hbs');
-var os = require('os');
-const e = require('express');
-var networkInterfaces = os.networkInterfaces();
+//var os = require('os');
+//var networkInterfaces = os.networkInterfaces();
 
 dotenv.config();
 const app = express();
@@ -62,5 +61,5 @@ app.get('/delete/:id',async(req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log("http://"+networkInterfaces.en0[1].address+":"+process.env.PORT);
+  //console.log("http://"+networkInterfaces.en0[1].address+":"+process.env.PORT);
 });
