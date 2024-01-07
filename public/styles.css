@@ -1,0 +1,87 @@
+.navbar {
+    background-color: #ffffff;
+    color: #1f1d1d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.navbar-logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-menu {
+    list-style-type: none;
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    align-items: center; /* Add this line */
+}
+
+.navbar-menu li {
+    margin-right: 10px;
+}
+
+.navbar-menu li a {
+    text-decoration: none;
+    font-family: Apple Symbols;
+    font-size: 22px;
+    color: #1f1d1d;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.navbar-menu li a:hover {
+    color: #ffcc00;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px; /* Add this line */
+}
+
+.dropbtn {
+    background-color: #ffffff;
+    font-family: Apple Symbols;
+
+    color: #1f1d1d;
+    /*padding: 10px;*/
+    text-decoration: none;
+    font-size: 22px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    font-family: Apple Symbols;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #1f1d1d;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f9f9f9;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #ffcc00;
+    color: #ffffff;
+}

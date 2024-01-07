@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+
+<body>
+
+    <div class="edit-page">
+        <h1>Edit Form</h1>
+        <form action="/update/{{data.id}}" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Name" value={{data.name}}><br>
+
+            <label for="phone">Phone No.:</label>
+            <input type="number" id="phone" name="phone" placeholder="Phone No." value={{data.phone}}><br>
+
+            <label for="nop">Number of People:</label>
+            <input type="number" id="nop" name="nop" placeholder="Number of People" value={{data.nop}}><br>
+
+            <label for="ac">Number of AC rooms:</label>
+            <input type="number" id="ac" name="ac" placeholder="Number of AC rooms" value={{data.ac}}><br>
+
+            <label for="nonac">Number of non AC rooms:</label>
+            <input type="number" id="nonac" name="nonac" placeholder="Number of non AC rooms" value={{data.nonac}}><br>
+
+            <div class="date-container">
+                <div class="date-input">
+                    <label for="checkin">Check-in date:</label>
+                    <input type="date" id="checkin" name="checkin" placeholder="Check-in date" value={{data.checkin}}>
+                </div>
+                <div class="date-input">
+                    <label for="checkout">Check-out date:</label>
+                    <input type="date" id="checkout" name="checkout" placeholder="Check-out date"
+                        value={{data.checkout}}>
+                </div>
+            </div>
+
+            <input type="submit" value="UPDATE">
+        </form>
+        <p id="p1" style="display: none;">{{data.checkin}}</p>
+        <p id="p2" style="display: none;">{{data.checkout}}</p>
+        <script>
+            const checkin = new Date(document.getElementById("p1").innerHTML);
+            const checkout = new Date(document.getElementById("p2").innerHTML);
+            document.getElementById("checkin").value = `${checkin.getFullYear()}-${(checkin.getMonth() + 1).toString().padStart(2, '0')}-${checkin.getDate().toString().padStart(2, '0')}`;
+            document.getElementById("checkout").value = `${checkout.getFullYear()}-${(checkout.getMonth() + 1).toString().padStart(2, '0')}-${checkout.getDate().toString().padStart(2, '0')}`;
+        </script>
+    </div>
+
+    <style>
+        .edit-page {
+            max-width: 500px;
+            margin: auto;
+            margin-bottom: 100px;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: unset;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .date-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .date-input {
+            flex: 1;
+        }
+    </style>
+
+</body>
+
+</html>
