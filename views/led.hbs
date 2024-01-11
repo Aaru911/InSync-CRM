@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LED Control</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../led.css">
+    
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="logo.svg" alt="Logo">
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="/">Home</a></li>
+            <div class="dropdown">
+                <button class="dropbtn">Entries</button>
+                <div class="dropdown-content">
+                    <a href="/add">Add Entry</a>
+                    <a href="/view">View Entries</a>
+                </div>
+            </div>
+            <li><a href="/  ">IOT Control</a></li>
+        </ul>
+    </nav>
+  <h1>LED Control</h1>
+
+<form action="/led" method="post">
+LED 1
+    <label class="switch">
+        <input type="checkbox" id="led1" name="led1" onchange="submit()">
+        <span class="slider round"></span>
+    </label>
+    <br><br>
+LED 2
+    <label class="switch">
+        <input type="checkbox" id="led2" name="led2" onchange="submit()">
+        <span class="slider round"></span>
+    </label>
+    <br><br>
+LED 3
+    <label class="switch">
+        <input type="checkbox" id="led3" name="led3" onchange="submit()">
+        <span class="slider round"></span>
+     </label>
+    <input type="submit" value="Submit">
+</form>
+<p id="IOT_Status">{{data}}</p>
+</body>
+
+<script>
+    let status = document.getElementById("IOT_Status").innerHTML;
+    let obj=JSON.parse(status);
+    
+    if(obj.led1 == "1"){
+        document.getElementById("led1").checked = true;
+    }
+    else{
+        document.getElementById("led1").checked = false;
+    }
+
+    if(obj.led2 == "1"){
+        document.getElementById("led2").checked = true;
+    }
+    else{
+        document.getElementById("led2").checked = false;
+    }
+    if(obj.led3 == "1"){
+        document.getElementById("led3").checked = true;
+    }
+    else{
+        document.getElementById("led3").checked = false;
+    }
+</script>
+</html>
