@@ -20,7 +20,7 @@
                     <a href="/view">View Entries</a>
                 </div>
             </div>
-            <li><a href="/  ">IOT Control</a></li>
+            <li><a href="/led">IOT Control</a></li>
         </ul>
     </nav>
   <h1>LED Control</h1>
@@ -28,21 +28,22 @@
 <form action="/led" method="post">
 LED 1
     <label class="switch">
-        <input type="checkbox" id="led1" name="led1" onchange="submit()">
+        <input type="checkbox" id="led1" name="led1">
         <span class="slider round"></span>
     </label>
     <br><br>
 LED 2
     <label class="switch">
-        <input type="checkbox" id="led2" name="led2" onchange="submit()">
+        <input type="checkbox" id="led2" name="led2" >
         <span class="slider round"></span>
     </label>
     <br><br>
 LED 3
     <label class="switch">
-        <input type="checkbox" id="led3" name="led3" onchange="submit()">
+        <input type="checkbox" id="led3" name="led3" >
         <span class="slider round"></span>
      </label>
+     <br>
     <input type="submit" value="Submit">
 </form>
 <p id="IOT_Status">{{data}}</p>
