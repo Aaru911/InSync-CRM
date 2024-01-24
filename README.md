@@ -9,8 +9,6 @@ CRM Plus is an enhanced version of a Customer Relationship Management (CRM) syst
 
 ## Authors
 - [@Aaru911](https://www.github.com/Aaru911)
-- [@mithrajeeth18](https://www.github.com/mithrajeeth18)
-- [@MGaikwad7077](https://www.github.com/MGaikwad7077)
 
 ## Run Locally
 
