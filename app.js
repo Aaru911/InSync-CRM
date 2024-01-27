@@ -11,6 +11,7 @@ app.set("view engine", "hbs");
 app.use(express.urlencoded({extended:false}));
 
 app.use('/', require('./routes/app_route.js'));
+app.use('/entries', require('./routes/entries_route.js'));
 app.use('/led', require('./routes/led_route.js'));
 
 app.use(router);

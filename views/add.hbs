@@ -19,35 +19,35 @@
             <div class="dropdown">
                 <button class="dropbtn">Entries</button>
                 <div class="dropdown-content">
-                    <a href="/add">Add Entry</a>
-                    <a href="/view">View Entries</a>
+                    <a href="/entries/add">Add Entry</a>
+                    <a href="/entries/view">View Entries</a>
                 </div>
             </div>
             <li><a href="led">IOT Control</a></li>
         </ul>
     </nav>
     <br>
-    <form action="/add" method="post">
+    <form action="/entries/add" method="post">
         <label for="name">Name:</label>
-        <input type="text" name="name" id="name" placeholder="Name"><br>
+        <input type="text" name="name" id="name" placeholder="Name" required="true"><br>
         
         <label for="phone">Phone No.:</label>
-        <input type="number" name="phone" id="phone" placeholder="Phone No."><br>
+        <input type="number" name="phone" id="phone" placeholder="Phone No."required="true"><br>
         
         <label for="nop">Number of People:</label>
-        <input type="number" name="nop" id="nop" placeholder="Number of People" value="1"><br>
+        <input type="number" name="nop" id="nop" placeholder="Number of People" value="1" required="true"><br>
         
         <label for="ac">Number of AC rooms:</label>
-        <input type="number" name="ac" id="ac" placeholder="Number of AC rooms" value="0"><br>
+        <input type="number" name="ac" id="ac" placeholder="Number of AC rooms" value="0" required="true"><br>
         
         <label for="nonac">Number of non AC rooms:</label>
-        <input type="number" name="nonac" id="nonac" placeholder="Number of non AC rooms" value="0"><br>
+        <input type="number" name="nonac" id="nonac" placeholder="Number of non AC rooms" value="0" required="true"><br>
         
         <label for="checkin">Check-in date:</label>
-        <input type="date" name="checkin" id="checkin" placeholder="Check-in date"><br>
+        <input type="date" name="checkin" id="checkin" placeholder="Check-in date" min="{{getCurrentDate}}" required="true" min='$todaymin'><br>
         
         <label for="checkout">Check-out date:</label>
-        <input type="date" name="checkout" id="checkout" placeholder="Check-out date"><br>
+        <input type="date" name="checkout" id="checkout" placeholder="Check-out date" min="{{getCurrentDate}}" required="true" min='$todaymin'><br>
         
         <input type="submit" value="Add Entry">
     </form>
