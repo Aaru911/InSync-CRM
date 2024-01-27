@@ -27,14 +27,20 @@ app.post('/entries/add', async (req, res) => {
 });
 
 app.get('/entries/view', async (req, res) => {
-    try {
-        await mongo.enquiry.find({}).then((data) => {
-            res.render("view", { data: data });
-        });
-    } catch (error) {
-        console.log(error);
+    const data= req.query;
+    var filter = {};
+    if(data.check_in != undefined){
+        console.log(data.check_in);
+        filter = {'checkin': new Date(data.check_in)};
     }
-
+        try {
+            await mongo.enquiry.find(filter).then((data) => {
+                res.render("view", { data: data });
+            });
+        } catch (error) {
+            console.log("No data found");
+            res.redirect("/entries/view");
+        }
 });
 
 app.get('/entries/edit/:id', async (req, res) => {
