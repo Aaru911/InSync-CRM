@@ -1,9 +1,11 @@
-table{
-    border-collapse: collapse; 
-    width: 100%; 
+table {
+    border-collapse: collapse;
+    width: 100%;
     margin: 0 auto;
 }
-th, td{
+
+th,
+td {
     border: 1px solid black;
     padding: 8px;
     text-align: center;
@@ -37,3 +39,41 @@ input[type="submit"]:hover {
     background-color: #45a049;
 }
 
+.search_sort_filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* FILEPATH: /Users/aaru/Documents/Project/CRM/views/view.css */
+/* BEGIN: 7e4f5g6h7i8j */
+details {
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f5f5f5;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px;
+    background-color: #ddd;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+summary::before {
+    content: '+';
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+details[open] summary::before {
+    content: '-';
+}
