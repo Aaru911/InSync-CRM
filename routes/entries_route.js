@@ -27,20 +27,61 @@ app.post('/entries/add', async (req, res) => {
 });
 
 app.get('/entries/view', async (req, res) => {
-    const data= req.query;
-    var filter = {};
-    if(data.check_in != undefined){
-        console.log(data.check_in);
-        filter = {'checkin': new Date(data.check_in)};
+    sort = {'checkin': -1};
+    try {
+        await mongo.enquiry.find(null,null,{sort}).then((data) => {
+            res.render("view", { data: data });
+        });
+    } catch (error) {
+        console.log(error);
     }
-        try {
-            await mongo.enquiry.find(filter).then((data) => {
-                res.render("view", { data: data });
-            });
-        } catch (error) {
-            console.log("No data found");
-            res.redirect("/entries/view");
-        }
+});
+
+app.post('/entries/view', async (req, res) => {
+    var data= req.body;
+    var filter = {};
+    var sort = {'checkin': -1};
+
+    if(data.Till != ''){
+        const d1 = new Date(data.Till);
+        d1.setDate(d1.getDate() + 1);
+        data.Till = d1;
+    }
+
+    if(data.From != '' && data.Till != ''){
+        console.log(data.From, data.Till);
+        filter = {'checkin': {'$gte':new Date(data.From), '$lt':new Date(data.Till)}};
+    }
+    else if(data.From != '' && data.Till == ''){
+        filter = {'checkin': new Date(data.From)};
+    }
+    else{
+        filter=null
+    }
+
+    if(data.order == 'asc'){
+        sort = {'checkin': 1};
+    }
+    else if(data.order == 'desc'){
+        sort = {'checkin': -1};
+    }
+    else{
+        sort={'checkin': -1};
+    }
+    
+    if(data.search != ''){
+        filter = {
+            'name': {'$regex': data.search, '$options': 'i'},
+          };
+    }
+    try {
+        await mongo.enquiry.find(filter, null,{ sort }).then((data) => {
+            res.render("view", { data: data });
+        });
+    } catch (error) {
+        console.log("No data found");
+        res.redirect("/entries/view");
+    }
 });
 
 app.get('/entries/edit/:id', async (req, res) => {

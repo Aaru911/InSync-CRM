@@ -7,6 +7,7 @@
     <title>View Entries</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../styles.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../view.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../sidebar.css'>
 </head>
 
 <body>
@@ -28,10 +29,32 @@
     </nav>
     <br>
     <h1>View Entries</h1>
-    <form action="/entries/view" method="GET">
-        <label for="search">Search</label>
-        <input type="date" name="check_in" id="check_in">
-        <input type="submit" value="Search">
+    <details>
+        <summary>Search Sort Filter</summary>
+         <form action="/entries/view" method="post" class="search_sort_filter">
+            <label for="search">From</label>
+            <input type="date" name="From" id="From">
+            <label for="search">Till</label>
+            <input type="date" name="Till" id="Till">
+
+            <label for="search">Search</label>
+            <input type="text" name="search" id="search">
+
+            <label for="sort">Sort</label>
+            <select name="sort" id="sort">
+                <option value="name">Name</option>
+                <option value="checkin">Check-in</option>
+                <option value="checkout">Check-out</option>
+            </select>
+            <select name="order" id="order">
+                <option value="desc">Descending</option>
+                <option value="asc">Ascending</option>
+            </select>
+            <input type="submit" value="Search">
+        </form>
+    </details>
+       
+
     <br>
     <table>
         <thead>
