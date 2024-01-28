@@ -3,6 +3,8 @@ const express = require('express');
 app.use(express.static('public'));
 const mongo = require('../mongodb.js');
 
+var filter = {};
+var sort = {'checkin': -1};
 
 app.get('/entries/add', (req, res) => {
     res.render("add");
@@ -27,20 +29,19 @@ app.post('/entries/add', async (req, res) => {
 });
 
 app.get('/entries/view', async (req, res) => {
-    sort = {'checkin': -1};
     try {
-        await mongo.enquiry.find(null,null,{sort}).then((data) => {
+        await mongo.enquiry.find(filter,null,{sort}).then((data) => {
             res.render("view", { data: data });
         });
     } catch (error) {
+        console.log("No data found");
         console.log(error);
     }
 });
 
 app.post('/entries/view', async (req, res) => {
+
     var data= req.body;
-    var filter = {};
-    var sort = {'checkin': -1};
 
     if(data.Till != ''){
         const d1 = new Date(data.Till);
@@ -59,35 +60,32 @@ app.post('/entries/view', async (req, res) => {
         filter=null
     }
 
-    if(data.order == 'asc'){
-        sort = {'checkin': 1};
+    if(data.sort != ''&& data.order != ''){
+        sort={
+            [data.sort] : data.order
+        }
     }
-    else if(data.order == 'desc'){
-        sort = {'checkin': -1};
-    }
-    else{
-        sort={'checkin': -1};
-    }
-    
+
     if(data.search != ''){
         filter = {
             'name': {'$regex': data.search, '$options': 'i'},
           };
     }
-    try {
-        await mongo.enquiry.find(filter, null,{ sort }).then((data) => {
-            res.render("view", { data: data });
-        });
-    } catch (error) {
-        console.log("No data found");
-        res.redirect("/entries/view");
-    }
+    console.log("Filter",filter,"\n",sort);
+    res.redirect("entries/view");
+});
+
+app.get('/entries/view/reset', async (req, res) => {
+    console.log("Reset");
+    filter = {};
+    sort = {'checkin': -1};
+    res.redirect("/entries/view");  
 });
 
 app.get('/entries/edit/:id', async (req, res) => {
     try {
         await mongo.enquiry.findOne({ _id: req.params.id }).then((data) => {
-            res.render("edit", { data: data });
+            res.render("entries/edit", { data: data });
         });
     } catch (error) {
         console.log(error);

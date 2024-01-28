@@ -14,29 +14,29 @@
         <h1>Edit Form</h1>
         <form action="/entries/update/{{data.id}}" method="post">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Name" value={{data.name}}><br>
+            <input type="text" id="name" name="name" placeholder="Name" value={{data.name}} required="true"><br>
 
             <label for="phone">Phone No.:</label>
-            <input type="number" id="phone" name="phone" placeholder="Phone No." value={{data.phone}}><br>
+            <input type="number" id="phone" name="phone" placeholder="Phone No." value={{data.phone}} required="true"><br>
 
             <label for="nop">Number of People:</label>
-            <input type="number" id="nop" name="nop" placeholder="Number of People" value={{data.nop}}><br>
+            <input type="number" id="nop" name="nop" placeholder="Number of People" value={{data.nop}} required="true"><br>
 
             <label for="ac">Number of AC rooms:</label>
-            <input type="number" id="ac" name="ac" placeholder="Number of AC rooms" value={{data.ac}}><br>
+            <input type="number" id="ac" name="ac" placeholder="Number of AC rooms" value={{data.ac}} required="true"><br>
 
             <label for="nonac">Number of non AC rooms:</label>
-            <input type="number" id="nonac" name="nonac" placeholder="Number of non AC rooms" value={{data.nonac}}><br>
+            <input type="number" id="nonac" name="nonac" placeholder="Number of non AC rooms" value={{data.nonac}} required="true"><br>
 
             <div class="date-container">
                 <div class="date-input">
                     <label for="checkin">Check-in date:</label>
-                    <input type="date" id="checkin" name="checkin" placeholder="Check-in date" value={{data.checkin}}>
+                    <input type="date" id="checkin" name="checkin" placeholder="Check-in date" value={{data.checkin}} required="true">
                 </div>
                 <div class="date-input">
                     <label for="checkout">Check-out date:</label>
                     <input type="date" id="checkout" name="checkout" placeholder="Check-out date"
-                        value={{data.checkout}}>
+                        value={{data.checkout}} required="true">
                 </div>
             </div>
 
