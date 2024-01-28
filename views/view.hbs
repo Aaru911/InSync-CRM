@@ -7,26 +7,10 @@
     <title>View Entries</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../styles.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../view.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='../sidebar.css'>
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="navbar-logo">
-            <img src="logo.svg" alt="Logo">
-        </div>
-        <ul class="navbar-menu">
-            <li><a href="/">Home</a></li>
-            <div class="dropdown">
-                <button class="dropbtn">Entries</button>
-                <div class="dropdown-content">
-                    <a href="/entries/add">Add Entry</a>
-                    <a href="/entries/view">View Entries</a>
-                </div>
-            </div>
-            <li><a href="/led">IOT Control</a></li>
-        </ul>
-    </nav>
+    {{> navbar}}
     <br>
     <h1>View Entries</h1>
     <details>
@@ -52,6 +36,7 @@
             </select>
             <input type="submit" value="Search">
         </form>
+    <a onclick="load_reset()" class="reset-button">Reset</a>
     </details>
        
 
@@ -90,7 +75,11 @@
 </body>
 <script>
     const checkinElements = document.querySelectorAll("[id^='ind']");
-    const checkoutElements = document.querySelectorAll("[id^='outd']");
+    const checkoutElements = document.querySelectorAll("[id^='outd']");    
+
+    function load_reset(){
+        window.location.href = "/entries/view/reset";
+    }
 
     checkinElements.forEach((element, index) => {
         const checkin = new Date(element.innerHTML);

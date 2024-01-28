@@ -8,12 +8,20 @@
 </head>
 
 <body>
-    <nav class="navbar">
+    {{> navbar}}
+    {{!-- <nav class="navbar">
         <div class="navbar-logo">
             <img src="logo.svg" alt="Logo">
         </div>
         <ul class="navbar-menu">
             <li><a href="/">Home</a></li>
+            <div class="dropdown">
+                <button class="dropbtn">Customer's</button>
+                <div class="dropdown-content">
+                    <a href="/Customer/add">Add Entry</a>
+                    <a href="/Customer/view">View Entries</a>
+                </div>
+            </div>
             <div class="dropdown">
                 <button class="dropbtn">Entries</button>
                 <div class="dropdown-content">
@@ -23,7 +31,7 @@
             </div>
             <li><a href="led">IOT Control</a></li>
         </ul>
-    </nav>
+    </nav> --}}
 
     <div class="container">
         <aside class="sidebar">

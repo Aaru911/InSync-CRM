@@ -10,22 +10,7 @@
 </head>
 
 <body>
-<nav class="navbar">
-        <div class="navbar-logo">
-            <img src="logo.svg" alt="Logo">
-        </div>
-        <ul class="navbar-menu">
-            <li><a href="/">Home</a></li>
-            <div class="dropdown">
-                <button class="dropbtn">Entries</button>
-                <div class="dropdown-content">
-                    <a href="/entries/add">Add Entry</a>
-                    <a href="/entries/view">View Entries</a>
-                </div>
-            </div>
-            <li><a href="led">IOT Control</a></li>
-        </ul>
-    </nav>
+{{> navbar}}
     <br>
     <form action="/entries/add" method="post">
         <label for="name">Name:</label>
