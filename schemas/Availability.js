@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Define the schema
-const AvailabilitySchema = new mongoose.Schema({
+const availabilitySchema = new mongoose.Schema({
     bookingDate: {
         type: Date,
         required: true,
@@ -16,5 +16,5 @@ const AvailabilitySchema = new mongoose.Schema({
     },
 });
 
-const Availability = mongoose.model('Availability', AvailabilitySchema);
-module.exports = Availability;
+const availability = mongoose.model('availability', availabilitySchema);
+module.exports = availability;

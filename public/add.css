@@ -15,6 +15,7 @@ form {
 
 form input[type="text"],
 form input[type="number"],
+form input[type="email"],
 form input[type="date"] {
     padding: 15px;
     border: 1px solid #ccc;

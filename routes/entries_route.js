@@ -7,7 +7,7 @@ var filter = {};
 var sort = {'checkin': -1};
 
 app.get('/entries/add', (req, res) => {
-    res.render("add");
+    res.render("entries/add");
 });
 
 app.post('/entries/add', async (req, res) => {
@@ -31,7 +31,7 @@ app.post('/entries/add', async (req, res) => {
 app.get('/entries/view', async (req, res) => {
     try {
         await mongo.enquiry.find(filter,null,{sort}).then((data) => {
-            res.render("view", { data: data });
+            res.render("entries/view", { data: data });
         });
     } catch (error) {
         console.log("No data found");

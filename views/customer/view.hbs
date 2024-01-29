@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Customer</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../styles.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../view.css'>
+</head>
+
+<body>
+    {{> navbar}}
+    <br>
+    <h1>View Customer</h1>
+    <details>
+        <summary>Search Sort Filter</summary>
+         <form action="/customer/view" method="post" class="search_sort_filter">
+            <label for="search">From</label>
+            <input type="date" name="From" id="From">
+            <label for="search">Till</label>
+            <input type="date" name="Till" id="Till">
+
+            <label for="search">Search</label>
+            <input type="text" name="search" id="search">
+
+            <label for="sort">Sort</label>
+            <select name="sort" id="sort">
+                <option value="name">Name</option>
+                <option value="checkin">Check-in</option>
+                <option value="checkout">Check-out</option>
+            </select>
+            <select name="order" id="order">
+                <option value="desc">Descending</option>
+                <option value="asc">Ascending</option>
+            </select>
+            <input type="submit" value="Search">
+        </form>
+    <a onclick="load_reset()" class="reset-button">Reset</a>
+    </details>
+       
+
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.phone}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.address}}</td>
+                <td>
+                    <a href="/customer/edit/{{this._id}}">Edit</a>
+                    <a href="/customer/delete/{{this._id}}">Delete</a>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+</body>
+<script>
+    function load_reset(){
+        window.location.href = "/customer/view/reset";
+    }
+</script>
+
+
+</html>
