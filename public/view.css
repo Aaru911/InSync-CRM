@@ -80,19 +80,31 @@ details[open] summary::before {
 }
 
 .reset-button {
-        display: inline-block;
-        padding: 8px 16px;
-        background-color: #f44336;
-        color: #1a1010;
-        text-decoration: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #f44336;
+    color: #1a1010;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
-    .reset-button:hover {
-        background-color: #d32f2f;
-    }
+.reset-button:hover {
+    background-color: #d32f2f;
+}
 
-    .reset-button:active {
-        background-color: #b71c1c;
-    }
+.reset-button:active {
+    background-color: #b71c1c;
+}
+
+select {
+    margin: 5px;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+select:focus {
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
