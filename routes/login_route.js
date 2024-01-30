@@ -1,6 +1,7 @@
 const app = global.router
 const mongo = require('../mongodb.js');
 app.get('/login', (req, res) => {
+    console.log(localStorage.getItem('user'), localStorage.getItem('pass'));
     res.render("login");
 });
 app.post('/login', (req, res) => {
