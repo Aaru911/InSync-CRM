@@ -10,7 +10,6 @@ const connect= async () => {
 const user_name = localStorage.getItem('user');
 const password = localStorage.getItem('pass');
 DB_CONNECT = "mongodb+srv://"+user_name+":"+password+process.env.DB_CONNECT;
-console.log(DB_CONNECT);
   mongoose.connect(DB_CONNECT).then(() => {
     console.log("Database connected successfully");
   }).catch((err) => {
@@ -24,7 +23,6 @@ const disconnect = async () => {
     console.log("Database disconnected successfully");
   }).catch((err) => {
     console.log("Error disconnecting to database");
-    //console.log(err);
   });
 
 }

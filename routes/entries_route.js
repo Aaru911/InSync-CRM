@@ -31,7 +31,8 @@ app.post('/entries/add', async (req, res) => {
 app.get('/entries/view', async (req, res) => {
     try {
         await mongo.enquiry.find(filter,null,{sort}).then((data) => {
-            res.render("entries/view", { data: data });
+            sort_str=JSON.stringify(sort)
+            res.render("entries/view", { data: data , filter:filter, sort:sort_str});
         });
     } catch (error) {
         console.log("No data found");

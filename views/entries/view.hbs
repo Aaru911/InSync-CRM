@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Entries</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='../styles.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../view.css'>
 </head>
 
@@ -71,9 +70,26 @@
             {{/each}}
         </tbody>
     </table>
-
+    <p id="p_sort" style="display: none;">{{sort}}</p>
 </body>
 <script>
+    
+    const jsonObject = JSON.parse(document.getElementById('p_sort').innerHTML);
+    document.getElementById('sort').value = Object.keys(jsonObject)[0];
+    if(Object.values(jsonObject)[0]==-1){
+        document.getElementById('order').value = 'desc';
+    }
+    else{
+        document.getElementById('order').value = 'asc';
+    }
+    if('{{filter.checkin.$lt}}'!=''){
+        document.getElementById('From').valueAsDate = new Date('{{filter.checkin.$gte}}');
+        document.getElementById('Till').valueAsDate = new Date('{{filter.checkin.$lt}}');
+    }
+    else{
+        document.getElementById('From').valueAsDate = new Date('{{filter.checkin}}');    
+    }
+    
     const checkinElements = document.querySelectorAll("[id^='ind']");
     const checkoutElements = document.querySelectorAll("[id^='outd']");    
 
