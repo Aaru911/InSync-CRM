@@ -54,19 +54,23 @@
             </tr>
         </thead>
         <tbody>
-            {{#each data}}
+
+
             <tr>
-                <td>{{this.name}}</td>
-                <td>{{this.phone}}</td>
-                <td>{{this.nop}}</td>
-                <td>{{this.ac}}</td>
-                <td>{{this.nonac}}</td>
-                <td id="ind{{@index}}">{{this.checkin}}</td>
-                <td id="outd{{@index}}">{{this.checkout}}</td>
-                <td>
-                    <a href="/entries/edit/{{this._id}}">Edit</a>
-                    <a href="/entries/delete/{{this._id}}">Delete</a>
-            </tr>
+            {{#each data}}   
+                <tr>
+                    <td>{{user.name}}</td>
+                    <td>{{user.phone}}</td>
+                    <td>{{this.nop}}</td>
+                    <td>{{this.ac}}</td>
+                    <td>{{this.nonac}}</td>
+                    <td id="ind{{@index}}">{{this.checkin}}</td>
+                    <td id="outd{{@index}}">{{this.checkout}}</td>
+                    <td>
+                        <a href="/entries/edit/{{this._id}}">Edit</a> |
+                        <a href="/entries/delete/{{this._id}}">Delete</a>
+                    </td>
+                </tr>
             {{/each}}
         </tbody>
     </table>

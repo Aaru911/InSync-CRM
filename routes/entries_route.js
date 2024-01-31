@@ -2,38 +2,48 @@ const app = global.router
 const express = require('express');
 app.use(express.static('public'));
 const mongo = require('../mongodb.js');
+const { ObjectId } = require('mongodb');
+
 
 var filter = {};
 var sort = {'checkin': -1};
-
-app.get('/entries/add', (req, res) => {
-    res.render("entries/add");
+app.get('/entries/add', async(req, res) => {
+    try {
+        await mongo.user.find().then((data) => {
+            res.render("entries/add", { data: data });
+        });
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 app.post('/entries/add', async (req, res) => {
     var enquiry = req.body;
+    enquiry.user = new ObjectId(enquiry.user_id);
     if(enquiry.checkin < enquiry.checkout){
         try {
             await mongo.enquiry.insertMany(enquiry);
         } catch (error) {
             console.log(error);
-            res.redirect("add");
+            res.redirect("entries/add");
         }
-        res.redirect("view");
+        res.redirect("/entries/view");
     }
     else{
         console.log("Checkin date should be less than checkout date");
-        res.redirect("add");
+        res.redirect("entries/add");
     }
 
 });
 
 app.get('/entries/view', async (req, res) => {
     try {
-        await mongo.enquiry.find(filter,null,{sort}).then((data) => {
-            sort_str=JSON.stringify(sort)
-            res.render("entries/view", { data: data , filter:filter, sort:sort_str});
-        });
+        const data= await mongo.enquiry.find(filter,null,{sort});
+        sort_str=JSON.stringify(sort)  
+        for (const obj of data) {
+            obj.user= await mongo.user.findOne({'_id':obj.user});
+        }
+        res.render("entries/view", {data: data , filter:filter, sort:sort_str});
     } catch (error) {
         console.log("No data found");
         console.log(error);
