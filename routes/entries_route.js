@@ -4,7 +4,7 @@ app.use(express.static('public'));
 const mongo = require('../mongodb.js');
 const { ObjectId } = require('mongodb');
 const {validateDateMiddleware}=require('../middleware/validateDate');
-const  {get_add_entries}=require('../controller/entries_controller');
+const  {get_add_entries,post_add_entries}=require('../controller/entries_controller');
 
 
 var filter = {};
