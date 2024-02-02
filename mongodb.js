@@ -15,7 +15,7 @@ DB_CONNECT = "mongodb+srv://"+user_name+":"+password+process.env.DB_CONNECT;
   }).catch((err) => {
     disconnect();
     console.log("Error connecting to database");
-    //console.log(err);
+    console.log(err);
   });
 }
 const disconnect = async () => {
@@ -23,7 +23,6 @@ const disconnect = async () => {
     console.log("Database disconnected successfully");
   }).catch((err) => {
     console.log("Error disconnecting to database");
-    //console.log(err);
   });
 
 }

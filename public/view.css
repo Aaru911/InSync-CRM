@@ -108,3 +108,14 @@ select:focus {
     outline: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
+
+a {
+    
+    text-decoration: none;
+    color: #b92323;
+
+}
+a:hover {
+    color: #df892e;
+    text-decoration: underline;
+}

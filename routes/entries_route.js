@@ -2,37 +2,25 @@ const app = global.router
 const express = require('express');
 app.use(express.static('public'));
 const mongo = require('../mongodb.js');
+const { ObjectId } = require('mongodb');
+const {validateDateMiddleware}=require('../middleware/validateDate');
+const  {get_add_entries}=require('../controller/entries_controller');
+
 
 var filter = {};
 var sort = {'checkin': -1};
+app.get('/entries/add', get_add_entries);
 
-app.get('/entries/add', (req, res) => {
-    res.render("entries/add");
-});
-
-app.post('/entries/add', async (req, res) => {
-    var enquiry = req.body;
-    if(enquiry.checkin < enquiry.checkout){
-        try {
-            await mongo.enquiry.insertMany(enquiry);
-        } catch (error) {
-            console.log(error);
-            res.redirect("add");
-        }
-        res.redirect("view");
-    }
-    else{
-        console.log("Checkin date should be less than checkout date");
-        res.redirect("add");
-    }
-
-});
+app.post('/entries/add',validateDateMiddleware, post_add_entries);
 
 app.get('/entries/view', async (req, res) => {
     try {
-        await mongo.enquiry.find(filter,null,{sort}).then((data) => {
-            res.render("entries/view", { data: data });
-        });
+        const data= await mongo.enquiry.find(filter,null,{sort});
+        sort_str=JSON.stringify(sort)  
+        for (const obj of data) {
+            obj.user= await mongo.user.findOne({'_id':obj.user});
+        }
+        res.render("entries/view", {data: data , filter:filter, sort:sort_str});
     } catch (error) {
         console.log("No data found");
         console.log(error);
@@ -93,7 +81,7 @@ app.get('/entries/edit/:id', async (req, res) => {
 
 });
 
-app.post('/entries/update/:id', async (req, res) => {
+app.post('/entries/update/:id',validateDateMiddleware,async (req, res) => {
     var enquiry = req.body;
     if(enquiry.checkin < enquiry.checkout){
         try {

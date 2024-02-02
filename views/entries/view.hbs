@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Entries</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='../styles.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../view.css'>
 </head>
 
@@ -55,25 +54,46 @@
             </tr>
         </thead>
         <tbody>
-            {{#each data}}
+
+
             <tr>
-                <td>{{this.name}}</td>
-                <td>{{this.phone}}</td>
-                <td>{{this.nop}}</td>
-                <td>{{this.ac}}</td>
-                <td>{{this.nonac}}</td>
-                <td id="ind{{@index}}">{{this.checkin}}</td>
-                <td id="outd{{@index}}">{{this.checkout}}</td>
-                <td>
-                    <a href="/entries/edit/{{this._id}}">Edit</a>
-                    <a href="/entries/delete/{{this._id}}">Delete</a>
-            </tr>
+            {{#each data}}   
+                <tr>
+                    <td>{{user.name}}</td>
+                    <td>{{user.phone}}</td>
+                    <td>{{this.nop}}</td>
+                    <td>{{this.ac}}</td>
+                    <td>{{this.nonac}}</td>
+                    <td id="ind{{@index}}">{{this.checkin}}</td>
+                    <td id="outd{{@index}}">{{this.checkout}}</td>
+                    <td>
+                        <a href="/entries/edit/{{this._id}}">Edit</a> |
+                        <a href="/entries/delete/{{this._id}}">Delete</a>
+                    </td>
+                </tr>
             {{/each}}
         </tbody>
     </table>
-
+    <p id="p_sort" style="display: none;">{{sort}}</p>
 </body>
 <script>
+    
+    const jsonObject = JSON.parse(document.getElementById('p_sort').innerHTML);
+    document.getElementById('sort').value = Object.keys(jsonObject)[0];
+    if(Object.values(jsonObject)[0]==-1){
+        document.getElementById('order').value = 'desc';
+    }
+    else{
+        document.getElementById('order').value = 'asc';
+    }
+    if('{{filter.checkin.$lt}}'!=''){
+        document.getElementById('From').valueAsDate = new Date('{{filter.checkin.$gte}}');
+        document.getElementById('Till').valueAsDate = new Date('{{filter.checkin.$lt}}');
+    }
+    else{
+        document.getElementById('From').valueAsDate = new Date('{{filter.checkin}}');    
+    }
+    
     const checkinElements = document.querySelectorAll("[id^='ind']");
     const checkoutElements = document.querySelectorAll("[id^='outd']");    
 

@@ -1,9 +1,7 @@
 const app = global.router
 const express = require('express');
-if (typeof localStorage === "undefined" || localStorage === null) {
-    var LocalStorage = require('node-localstorage').LocalStorage;
-    localStorage = new LocalStorage('./scratch');
-}
+const local = require('../utils/local.js');
+local();
   
 app.use(express.static('public'));
 app.get('/', (req, res) => {

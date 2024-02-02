@@ -2,6 +2,7 @@ const app = global.router
 const express = require('express');
 app.use(express.static('public'));
 const mongo = require('../mongodb.js');
+const { ObjectId } = require('mongodb');
 
 
 app.get('/customer/add', (req, res) => {
@@ -9,7 +10,7 @@ app.get('/customer/add', (req, res) => {
 });
 
 app.post('/customer/add',async (req, res) => {
-    var data=req.body;
+    const data=req.body;
     console.log(data);
     try {
         await mongo.user.insertMany(data);
@@ -21,9 +22,8 @@ app.post('/customer/add',async (req, res) => {
 
 app.get('/customer/view',async (req, res) => {
     try {
-        await mongo.user.find().then((data) => {
-            res.render("customer/view", { data: data });
-        });
+        const data = await mongo.user.find();
+        res.render("customer/view", { data: data });
     } catch (error) {
         console.log("No data found");
         console.log(error);
@@ -76,7 +76,6 @@ app.get('/customer/edit/:id',async (req, res) => {
         console.log(error);
     }
 });
-
 app.post('/customer/update/:id',async (req, res) => {
     try {
         await mongo.user.updateOne({ _id: req.params.id }, req.body);
@@ -85,4 +84,14 @@ app.post('/customer/update/:id',async (req, res) => {
     }
     res.redirect("/customer/view");
 });
+
+// app.get('/customer/history/:id',async (req, res) => {
+//     try {
+//         const data = await mongo.enquiry.find({'user':new ObjectId(req.params.id)});
+//         res.redirect("/entries/view", { data: data });
+//     } catch (error) {
+//         console.log("No data found");
+//         console.log(error);
+//     }
+// });
 module.exports = app;

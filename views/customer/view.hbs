@@ -38,12 +38,12 @@
         <tbody>
             {{#each data}}
             <tr>
-                <td>{{this.name}}</td>
+                <td><a href="/customer/history/{{this.id}}">{{this.name}}</a></td>
                 <td>{{this.phone}}</td>
                 <td>{{this.email}}</td>
                 <td>{{this.address}}</td>
                 <td>
-                    <a href="/customer/edit/{{this._id}}">Edit</a>
+                    <a href="/customer/edit/{{this._id}}">Edit</a> |
                     <a href="/customer/delete/{{this._id}}">Delete</a>
             </tr>
             {{/each}}

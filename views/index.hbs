@@ -1,22 +1,47 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Home Page</title>
-    <link rel="stylesheet" href="../styles.css">
-
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="../index.css">
 </head>
 
 <body>
     {{> navbar}}
     <div class="container">
-        <aside class="sidebar">
-            <!-- Sidebar content goes here -->
-        </aside>
+        <div class="admin-dashboard">
+            <aside class="sidebar">
+                <h2>Sidebar</h2>
+                <ul>
+                    <li>Dashboard</li>
+                    <li>Users</li>
+                    <li>Products</li>
+                    <li>Orders</li>
+                </ul>
+            </aside>
 
-        <main class="content">
-            <!-- Main content goes here -->
-        </main>
+            <main class="content">
+                <h2>Main Content</h2>
+                <div class="dashboard-stats">
+                    <div class="stat">
+                        <h3>Total Users</h3>
+                        <p>100</p>
+                    </div>
+                    <div class="stat">
+                        <h3>Total Products</h3>
+                        <p>50</p>
+                    </div>
+                    <div class="stat">
+                        <h3>Total Orders</h3>
+                        <p>200</p>
+                    </div>
+                </div>
+
+                <!-- Add more elements and graphs here -->
+                <div class="graphs">
+                    <!-- Add your graphs here -->
+                </div>
+            </main>
+        </div>
     </div>
 
     <footer>

@@ -1,16 +1,11 @@
 const mongoose = require('mongoose');
-
+const { ObjectId } = require('mongodb');
 
 // Define the schema
 const EnquirySchema = new mongoose.Schema({
-
-  name: {
-    type: String,
-    default: 'Anonymous',
-    required: true,
-  },
-  phone: {
-    type: Number,   
+  user: {
+    type: ObjectId,
+    ref: "user",
     required: true,
   },
   nop: {
@@ -26,16 +21,15 @@ const EnquirySchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-checkin: {
+  checkin: {
     type: Date,
     dateFormat: 'DD/MM/YYYY',
-},
-checkout: {
+  },
+  checkout: {
     type: Date,
     dateFormat: 'DD/MM/YYYY',  
-},
-});
-
+  }
+}); // Add closing brace here
 
 // Create a model based on the schema
 const enquiry = mongoose.model('enquiry', EnquirySchema);
