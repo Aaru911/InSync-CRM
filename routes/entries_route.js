@@ -3,38 +3,15 @@ const express = require('express');
 app.use(express.static('public'));
 const mongo = require('../mongodb.js');
 const { ObjectId } = require('mongodb');
+const {validateDateMiddleware}=require('../middleware/validateDate');
+const  {get_add_entries}=require('../controller/entries_controller');
 
 
 var filter = {};
 var sort = {'checkin': -1};
-app.get('/entries/add', async(req, res) => {
-    try {
-        await mongo.user.find().then((data) => {
-            res.render("entries/add", { data: data });
-        });
-    } catch (error) {
-        console.log(error);
-    }
-});
+app.get('/entries/add', get_add_entries);
 
-app.post('/entries/add', async (req, res) => {
-    var enquiry = req.body;
-    enquiry.user = new ObjectId(enquiry.user_id);
-    if(enquiry.checkin < enquiry.checkout){
-        try {
-            await mongo.enquiry.insertMany(enquiry);
-        } catch (error) {
-            console.log(error);
-            res.redirect("entries/add");
-        }
-        res.redirect("/entries/view");
-    }
-    else{
-        console.log("Checkin date should be less than checkout date");
-        res.redirect("entries/add");
-    }
-
-});
+app.post('/entries/add',validateDateMiddleware, post_add_entries);
 
 app.get('/entries/view', async (req, res) => {
     try {
@@ -104,7 +81,7 @@ app.get('/entries/edit/:id', async (req, res) => {
 
 });
 
-app.post('/entries/update/:id', async (req, res) => {
+app.post('/entries/update/:id',validateDateMiddleware,async (req, res) => {
     var enquiry = req.body;
     if(enquiry.checkin < enquiry.checkout){
         try {
