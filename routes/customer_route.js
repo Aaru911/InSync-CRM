@@ -2,14 +2,14 @@ const app = global.router
 const express = require('express');
 app.use(express.static('public'));
 const mongo = require('../mongodb.js');
-const { ObjectId } = require('mongodb');
+const {authMiddleware} = require('../middleware/auth.js');
 
 
-app.get('/customer/add', (req, res) => {
+app.get('/customer/add', authMiddleware,(req, res) => {
     res.render("customer/add");
 });
 
-app.post('/customer/add',async (req, res) => {
+app.post('/customer/add',authMiddleware,async (req, res) => {
     const data=req.body;
     console.log(data);
     try {
@@ -20,7 +20,7 @@ app.post('/customer/add',async (req, res) => {
     res.redirect("/customer/view");
 });
 
-app.get('/customer/view',async (req, res) => {
+app.get('/customer/view',authMiddleware,async (req, res) => {
     try {
         const data = await mongo.user.find();
         res.render("customer/view", { data: data });
@@ -30,7 +30,7 @@ app.get('/customer/view',async (req, res) => {
     }
 });
 
-app.post('/customer/view', async (req, res) => {
+app.post('/customer/view',authMiddleware, async (req, res) => {
     var data= req.body;
     if(data.search != ''){
         filter = {
@@ -53,11 +53,11 @@ app.post('/customer/view', async (req, res) => {
     }
 });
 
-app.get('/customer/view/reset', (req, res) => {
+app.get('/customer/view/reset',authMiddleware, (req, res) => {
     res.redirect("/customer/view");
 });
 
-app.get('/customer/delete/:id',async (req, res) => {
+app.get('/customer/delete/:id',authMiddleware,async (req, res) => {
     try {
         await mongo.user.deleteOne({ _id: req.params.id });
     } catch (error) {
@@ -66,7 +66,7 @@ app.get('/customer/delete/:id',async (req, res) => {
     res.redirect("/customer/view");
 });
 
-app.get('/customer/edit/:id',async (req, res) => {
+app.get('/customer/edit/:id',authMiddleware,async (req, res) => {
     try {
         await mongo.user.findById(req.params.id).then((data) => {
             res.render("customer/edit", { data: data });
@@ -76,7 +76,7 @@ app.get('/customer/edit/:id',async (req, res) => {
         console.log(error);
     }
 });
-app.post('/customer/update/:id',async (req, res) => {
+app.post('/customer/update/:id',authMiddleware,async (req, res) => {
     try {
         await mongo.user.updateOne({ _id: req.params.id }, req.body);
     } catch (error) {
