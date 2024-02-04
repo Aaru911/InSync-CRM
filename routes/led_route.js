@@ -1,6 +1,8 @@
 const app = global.router
 const http = require('http');
-app.get('/led', async (req, res) => {
+const {authMiddleware} = require('../middleware/auth.js');
+
+app.get('/led',authMiddleware, async (req, res) => {
     var IOT_data = '';
     res.render('led', {data:IOT_data});
     // http.get("http://"+process.env.IOT1, (resp) => {
@@ -14,7 +16,7 @@ app.get('/led', async (req, res) => {
     // });
   });
   
-  app.post('/led', async (req, res) => {
+  app.post('/led',authMiddleware, async (req, res) => {
     action1=req.body.led1;
     action2=req.body.led2;
     action3=req.body.led3;

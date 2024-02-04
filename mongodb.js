@@ -10,16 +10,16 @@ const connect= async () => {
 const user_name = localStorage.getItem('user');
 const password = localStorage.getItem('pass');
 DB_CONNECT = "mongodb+srv://"+user_name+":"+password+process.env.DB_CONNECT;
-  mongoose.connect(DB_CONNECT).then(() => {
+  await mongoose.connect(DB_CONNECT).then(() => {
     console.log("Database connected successfully");
   }).catch((err) => {
+    console.log("Error connecting to database Bad Aithentication or Network Error");
     disconnect();
-    console.log("Error connecting to database");
-    console.log(err);
+    //console.log(err);
   });
 }
 const disconnect = async () => {
-  mongoose.disconnect().then(() => {
+  await mongoose.disconnect().then(() => {
     console.log("Database disconnected successfully");
   }).catch((err) => {
     console.log("Error disconnecting to database");
@@ -28,15 +28,6 @@ const disconnect = async () => {
 }
 
 const check = async () => {
-  if (mongoose.connection.readyState == 1) {
-    return true;
-  }
-  else {
-    return false;
-  }
-
+  return await mongoose.connection.readyState;
 }
-
-
-
-module.exports = {enquiry, availability,user,connect,check,disconnect};
+module.exports = {enquiry, availability, user, connect, check, disconnect};

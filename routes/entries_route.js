@@ -2,18 +2,18 @@ const app = global.router
 const express = require('express');
 app.use(express.static('public'));
 const mongo = require('../mongodb.js');
-const { ObjectId } = require('mongodb');
+const {authMiddleware} = require('../middleware/auth.js');
 const {validateDateMiddleware}=require('../middleware/validateDate');
 const  {get_add_entries,post_add_entries}=require('../controller/entries_controller');
 
 
 var filter = {};
 var sort = {'checkin': -1};
-app.get('/entries/add', get_add_entries);
+app.get('/entries/add',authMiddleware, get_add_entries);
 
-app.post('/entries/add',validateDateMiddleware, post_add_entries);
+app.post('/entries/add',authMiddleware,validateDateMiddleware, post_add_entries);
 
-app.get('/entries/view', async (req, res) => {
+app.get('/entries/view',authMiddleware, async (req, res) => {
     try {
         const data= await mongo.enquiry.find(filter,null,{sort});
         sort_str=JSON.stringify(sort)  
@@ -27,7 +27,7 @@ app.get('/entries/view', async (req, res) => {
     }
 });
 
-app.post('/entries/view', async (req, res) => {
+app.post('/entries/view',authMiddleware, async (req, res) => {
 
     var data= req.body;
 
@@ -63,14 +63,14 @@ app.post('/entries/view', async (req, res) => {
     res.redirect("entries/view");
 });
 
-app.get('/entries/view/reset', async (req, res) => {
+app.get('/entries/view/reset',authMiddleware, async (req, res) => {
     console.log("Reset");
     filter = {};
     sort = {'checkin': -1};
     res.redirect("/entries/view");  
 });
 
-app.get('/entries/edit/:id', async (req, res) => {
+app.get('/entries/edit/:id', authMiddleware, async (req, res) => {
     try {
         await mongo.enquiry.findOne({ _id: req.params.id }).then((data) => {
             res.render("entries/edit", { data: data });
@@ -81,7 +81,7 @@ app.get('/entries/edit/:id', async (req, res) => {
 
 });
 
-app.post('/entries/update/:id',validateDateMiddleware,async (req, res) => {
+app.post('/entries/update/:id',authMiddleware,validateDateMiddleware,async (req, res) => {
     var enquiry = req.body;
     if(enquiry.checkin < enquiry.checkout){
         try {
@@ -97,7 +97,7 @@ app.post('/entries/update/:id',validateDateMiddleware,async (req, res) => {
 
 });
 
-app.get('/entries/delete/:id', async (req, res) => {
+app.get('/entries/delete/:id',authMiddleware, async (req, res) => {
     try {
         await mongo.enquiry.deleteOne({ _id: req.params.id });
     } catch (error) {
