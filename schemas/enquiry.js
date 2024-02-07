@@ -28,6 +28,12 @@ const EnquirySchema = new mongoose.Schema({
   checkout: {
     type: Date,
     dateFormat: 'DD/MM/YYYY',  
+  },
+  Rates:{
+    type: Number,
+  },
+  Pending_amount:{
+    type: Number,
   }
 }); // Add closing brace here
 

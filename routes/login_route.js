@@ -16,4 +16,10 @@ app.post('/login', async(req, res) => {
     }
 });
 
+app.get('/logout', (req, res) => {
+    localStorage.clear();
+    mongo.disconnect();
+    res.redirect("/login");
+});
+
 module.exports = app;

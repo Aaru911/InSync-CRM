@@ -30,4 +30,4 @@ const disconnect = async () => {
 const check = async () => {
   return await mongoose.connection.readyState;
 }
-module.exports = {enquiry, availability, user, connect, check, disconnect};
+module.exports = {enquiry, availability, user, connect, check, disconnect,ObjectId: mongoose.Types.ObjectId};
