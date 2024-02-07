@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes</title>
+</head>
+<body>
+    {{> navbar}}
+    <h1>Quotes</h1>
+    <form>
+        <label for="check_in">Check-in Date:</label>
+        <input type="date" name="check_in" id="check_in">
+        <br>
+        <label for="check_out">Check-out Date:</label>
+        <input type="date" name="check_out" id="check_out">
+        <br>
+        <label for="number_of_ac_rooms">Number of AC Rooms:</label>
+        <input type="Number" name="number_of_ac_rooms" id="number_of_ac_rooms">
+        <br>
+        <label for="number_of_non_ac_rooms">Number of Non-AC Rooms:</label>
+        <input type="Number" name="number_of_non_ac_rooms" id="number_of_non_ac_rooms">
+        <br>
+        <label for="extra">Extra:</label>
+        <input type="number" name="extra" id="extra">
+        <br>
+        <br>
+        <label for="total">Total:</label>
+        <input type="number" name="total" id="total">
+        <br>
+        <input type="button" value="Submit" onclick="check()">
+
+    </form>
+</body>
+<script>
+function check(){
+    const checkIn = document.getElementById('check_in').value;
+    const checkOut = document.getElementById('check_out').value;
+    const acRooms = document.getElementById('number_of_ac_rooms').value;
+    const nonAcRooms = document.getElementById('number_of_non_ac_rooms').value;
+    const extra = document.getElementById('extra').value;
+    const total = document.getElementById('total').value;
+    console.log(checkIn, checkOut, acRooms, nonAcRooms, extra, total);  
+}
+
+</script>
+</html>

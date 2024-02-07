@@ -6,7 +6,11 @@ local();
   
 app.use(express.static('public'));
 app.get('/', authMiddleware,(req, res) => {
-    res.render("index");
+    //res.render("index");
+    res.redirect("/customer/view");
+});
+app.get('/quote',(req, res) => {
+    res.render("invoice/quote");
 });
 
 module.exports = app;

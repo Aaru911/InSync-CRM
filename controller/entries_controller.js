@@ -12,7 +12,7 @@ exports.get_add_entries = async (req, res) => {
 exports.post_add_entries = async (req, res) => {
     var enquiry = req.body;
     console.log(enquiry);
-    enquiry.user = new ObjectId(enquiry.user_id);
+    enquiry.user = new mongo.ObjectId(enquiry.user_id);
     try {
         await mongo.enquiry.insertMany(enquiry);
     } catch (error) {
