@@ -14,10 +14,10 @@
         <h1>Edit Form</h1>
         <form action="/entries/update/{{data.id}}" method="post">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Name" value={{data.name}} required="true"><br>
+            <input type="text" id="name" name="name" placeholder="Name" value={{data.user.name}} required="true"><br>
 
             <label for="phone">Phone No.:</label>
-            <input type="number" id="phone" name="phone" placeholder="Phone No." value={{data.phone}} required="true"><br>
+            <input type="number" id="phone" name="phone" placeholder="Phone No." value={{data.user.phone}} required="true"><br>
 
             <label for="nop">Number of People:</label>
             <input type="number" id="nop" name="nop" placeholder="Number of People" value={{data.nop}} required="true"><br>

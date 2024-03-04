@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quotes</title>
 </head>
-<body>
+
+<body onload='initialize()'>
     {{> navbar}}
     <h1>Quotes</h1>
     <form>
@@ -33,15 +35,54 @@
     </form>
 </body>
 <script>
-function check(){
-    const checkIn = document.getElementById('check_in').value;
-    const checkOut = document.getElementById('check_out').value;
-    const acRooms = document.getElementById('number_of_ac_rooms').value;
-    const nonAcRooms = document.getElementById('number_of_non_ac_rooms').value;
-    const extra = document.getElementById('extra').value;
-    const total = document.getElementById('total').value;
-    console.log(checkIn, checkOut, acRooms, nonAcRooms, extra, total);  
-}
+    function initialize() {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById('check_in').value = today;
+        document.getElementById('check_out').value = today;
+        document.getElementById('number_of_ac_rooms').value = 0;
+        document.getElementById('number_of_non_ac_rooms').value = 0;
+        document.getElementById('extra').value = 0;
+    }
+
+    function check() {
+        let base = 2000;
+        let AC = 500;
+        let weekend = 500;
+        const checkIn = document.getElementById('check_in').value;
+        const checkOut = document.getElementById('check_out').value;
+        const acRooms = document.getElementById('number_of_ac_rooms').value;
+        const nonAcRooms = document.getElementById('number_of_non_ac_rooms').value;
+        const extra = document.getElementById('extra').value;
+        const total = document.getElementById('total').value;
+
+        //calculate sundays and sat between checkin and checkout   
+        var check_in = new Date(checkIn);
+        var check_out = new Date(checkOut);
+        var firstDate = new Date(checkIn);
+        var secondDate = new Date(checkOut);
+        var total_no_of_rooms = parseInt(acRooms) + parseInt(nonAcRooms);
+        var no_of_weekends = 0;
+        for (var d = new Date(checkIn); d <= new Date(checkOut); d.setDate(d.getDate() + 1)) {
+            if (d.getTime() !== check_out.getTime() && (d.getDay() === 6 || d.getDay() === 0)) { // 6 is Saturday, 0 is Sunday
+                no_of_weekends++;
+            }
+        }
+
+        var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+        var no_of_days = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+        console.log("Weekends- ", no_of_weekends);
+        console.log("Days- ", no_of_days);
+        console.log("Total Rooms- ", total_no_of_rooms);
+        console.log("AC Rooms- ", acRooms);
+        document.getElementById('total').value = (no_of_days * base * total_no_of_rooms) + (no_of_weekends * weekend * total_no_of_rooms) + (AC * parseInt(acRooms)) + parseInt(extra);
+        //total = (acRooms*AC) + (nonAcRooms*non-AC) + extra;
+        console.log(checkIn, checkOut, acRooms, nonAcRooms, extra, total);
+    }
 
 </script>
+
 </html>

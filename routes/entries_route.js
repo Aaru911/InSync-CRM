@@ -60,7 +60,7 @@ app.post('/entries/view',authMiddleware, async (req, res) => {
           };
     }
     console.log("Filter",filter,"\n",sort);
-    res.redirect("entries/view");
+    res.redirect("/entries/view");
 });
 
 app.get('/entries/view/reset',authMiddleware, async (req, res) => {
@@ -72,9 +72,9 @@ app.get('/entries/view/reset',authMiddleware, async (req, res) => {
 
 app.get('/entries/edit/:id', authMiddleware, async (req, res) => {
     try {
-        await mongo.enquiry.findOne({ _id: req.params.id }).then((data) => {
-            res.render("entries/edit", { data: data });
-        });
+        const data = await mongo.enquiry.findOne({ _id: req.params.id });
+        data.user = await mongo.user.findOne({ _id: data.user });
+        res.render("entries/edit", { data: data });
     } catch (error) {
         console.log(error);
     }
