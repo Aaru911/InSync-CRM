@@ -12,25 +12,24 @@
 <form action="/led" method="post">
 LED 1
     <label class="switch">
-        <input type="checkbox" id="led1" name="led1">
+        <input type="checkbox" id="led1" name="led1" onchange="submit()">
         <span class="slider round"></span>
     </label>
     <br><br>
 LED 2
     <label class="switch">
-        <input type="checkbox" id="led2" name="led2" >
+        <input type="checkbox" id="led2" name="led2" onchange="submit()">
         <span class="slider round"></span>
     </label>
     <br><br>
 LED 3
     <label class="switch">
-        <input type="checkbox" id="led3" name="led3" >
+        <input type="checkbox" id="led3" name="led3" onchange="submit()">
         <span class="slider round"></span>
      </label>
      <br>
-    <input type="submit" value="Submit">
 </form>
-<p id="IOT_Status">{{data}}</p>
+<p id="IOT_Status" style="display: none" >{{data}}</p>
 </body>
 
 <script>
@@ -43,7 +42,6 @@ LED 3
     else{
         document.getElementById("led1").checked = false;
     }
-
     if(obj.led2 == "1"){
         document.getElementById("led2").checked = true;
     }
