@@ -9,11 +9,11 @@ const  {get_add_entries,post_add_entries}=require('../controller/entries_control
 
 var filter = {};
 var sort = {'checkin': -1};
-app.get('/entries/add',authMiddleware, get_add_entries);
+app.get('/add',authMiddleware, get_add_entries);
 
-app.post('/entries/add',authMiddleware,validateDateMiddleware, post_add_entries);
+app.post('/add',authMiddleware,validateDateMiddleware, post_add_entries);
 
-app.get('/entries/view',authMiddleware, async (req, res) => {
+app.get('/view',authMiddleware, async (req, res) => {
     try {
         const data= await mongo.enquiry.find(filter,null,{sort});
         sort_str=JSON.stringify(sort)  
@@ -27,7 +27,7 @@ app.get('/entries/view',authMiddleware, async (req, res) => {
     }
 });
 
-app.post('/entries/view',authMiddleware, async (req, res) => {
+app.post('/view',authMiddleware, async (req, res) => {
 
     var data= req.body;
 
@@ -63,14 +63,14 @@ app.post('/entries/view',authMiddleware, async (req, res) => {
     res.redirect("/entries/view");
 });
 
-app.get('/entries/view/reset',authMiddleware, async (req, res) => {
+app.get('/view/reset',authMiddleware, async (req, res) => {
     console.log("Reset");
     filter = {};
     sort = {'checkin': -1};
     res.redirect("/entries/view");  
 });
 
-app.get('/entries/edit/:id', authMiddleware, async (req, res) => {
+app.get('/edit/:id', authMiddleware, async (req, res) => {
     try {
         const data = await mongo.enquiry.findOne({ _id: req.params.id });
         data.user = await mongo.user.findOne({ _id: data.user });
