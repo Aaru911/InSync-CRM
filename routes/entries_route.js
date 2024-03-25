@@ -4,7 +4,7 @@ app.use(express.static('public'));
 const mongo = require('../mongodb.js');
 const {authMiddleware} = require('../middleware/auth.js');
 const {validateDateMiddleware}=require('../middleware/validateDate');
-const  {get_add_entries,post_add_entries}=require('../controller/entries_controller');
+const  {get_add_entries,post_add_entries,post_view_entries}=require('../controller/entries_controller');
 
 
 var filter = {};
@@ -81,21 +81,7 @@ app.get('/edit/:id', authMiddleware, async (req, res) => {
 
 });
 
-app.post('/entries/update/:id',authMiddleware,validateDateMiddleware,async (req, res) => {
-    var enquiry = req.body;
-    if(enquiry.checkin < enquiry.checkout){
-        try {
-            await mongo.enquiry.updateOne({ _id: req.params.id }, enquiry);
-        } catch (error) {
-            console.log(error);
-        }
-        res.redirect('/entries/view');
-    }else{
-        console.log("Checkin date should be less than checkout date");
-        res.redirect("/entries/edit/"+req.params.id);    
-    }
-
-});
+app.post('/entries/update/:id',authMiddleware,validateDateMiddleware,post_view_entries);
 
 app.get('/entries/delete/:id',authMiddleware, async (req, res) => {
     try {

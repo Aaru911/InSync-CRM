@@ -1,4 +1,5 @@
 const mongo = require('../mongodb.js');
+const { find } = require('../utils/calculate.js');
 
 exports.get_add_entries = async (req, res) => {
     try {
@@ -11,8 +12,10 @@ exports.get_add_entries = async (req, res) => {
 
 exports.post_add_entries = async (req, res) => {
     var enquiry = req.body;
-    console.log(enquiry);
     enquiry.user = new mongo.ObjectId(enquiry.user_id);
+    const data = find(enquiry);
+    enquiry.Paid = 0;
+    enquiry.Pending_amount = data.total;
     try {
         await mongo.enquiry.insertMany(enquiry);
     } catch (error) {
@@ -20,4 +23,23 @@ exports.post_add_entries = async (req, res) => {
         res.redirect("/entries/add");
     }
     res.redirect("/entries/view");
-} 
+}
+
+exports.post_view_entries = async (req, res) => {
+    var enquiry = req.body;
+    const data = find(enquiry);
+    console.log(data);
+    enquiry.Paid = 0;
+    enquiry.Pending_amount = data.total;
+    if (enquiry.checkin < enquiry.checkout) {
+        try {
+            await mongo.enquiry.updateOne({ _id: req.params.id }, enquiry);
+        } catch (error) {
+            console.log(error);
+        }
+        res.redirect('/entries/view');
+    } else {
+        console.log("Checkin date should be less than checkout date");
+        res.redirect("/entries/edit/" + req.params.id);
+    }
+}

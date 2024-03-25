@@ -5,16 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Entries</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
     <link rel='stylesheet' type='text/css' media='screen' href='../view.css'>
 </head>
 
 <body>
     {{> navbar}}
     <br>
-    <h1>View Customer</h1>
+    <h1 style="margin-left: 1%;">View Entries</h1>
     <details>
         <summary>Search Sort Filter</summary>
-         <form action="/entries/view" method="post" class="search_sort_filter">
+        <form action="/entries/view" method="post" class="search_sort_filter">
             <label for="search">From</label>
             <input type="date" name="From" id="From">
             <label for="search">Till</label>
@@ -35,9 +47,9 @@
             </select>
             <input type="submit" value="Search">
         </form>
-    <a onclick="load_reset()" class="reset-button">Reset</a>
+        <a onclick="load_reset()" class="reset-button">Reset</a>
     </details>
-       
+
 
     <br>
     <table>
@@ -50,6 +62,7 @@
                 <th>Non-AC</th>
                 <th>Check-in</th>
                 <th>Check-out</th>
+                <th>Paid / pending</th>
                 <th>Options</th>
             </tr>
         </thead>
@@ -57,47 +70,49 @@
 
 
             <tr>
-            {{#each data}}   
-                <tr>
-                    <td>{{user.name}}</td>
-                    <td>{{user.phone}}</td>
-                    <td>{{this.nop}}</td>
-                    <td>{{this.ac}}</td>
-                    <td>{{this.nonac}}</td>
-                    <td id="ind{{@index}}">{{this.checkin}}</td>
-                    <td id="outd{{@index}}">{{this.checkout}}</td>
-                    <td>
-                        <a href="/entries/edit/{{this._id}}">Edit</a> |
-                        <a href="/entries/delete/{{this._id}}">Delete</a>
-                    </td>
-                </tr>
+                {{#each data}}
+            <tr>
+                <td>{{user.name}}</td>
+                <td>{{user.phone}}</td>
+                <td>{{this.nop}}</td>
+                <td>{{this.ac}}</td>
+                <td>{{this.nonac}}</td>
+                <td id="ind{{@index}}">{{this.checkin}}</td>
+                <td id="outd{{@index}}">{{this.checkout}}</td>
+                <td>{{this.Paid}} / {{this.Pending_amount}}</td>
+                <td>
+                    <a data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Record</a> |
+                    <a href="/entries/edit/{{this._id}}">Edit</a> |
+                    <a href="/entries/delete/{{this._id}}">Delete</a>
+                </td>
+            </tr>
             {{/each}}
         </tbody>
     </table>
     <p id="p_sort" style="display: none;">{{sort}}</p>
 </body>
 <script>
-    
+
     const jsonObject = JSON.parse(document.getElementById('p_sort').innerHTML);
     document.getElementById('sort').value = Object.keys(jsonObject)[0];
-    if(Object.values(jsonObject)[0]==-1){
+    if (Object.values(jsonObject)[0] == -1) {
         document.getElementById('order').value = 'desc';
     }
-    else{
+    else {
         document.getElementById('order').value = 'asc';
     }
-    if('{{filter.checkin.$lt}}'!=''){
+    if ('{{filter.checkin.$lt}}' != '') {
         document.getElementById('From').valueAsDate = new Date('{{filter.checkin.$gte}}');
         document.getElementById('Till').valueAsDate = new Date('{{filter.checkin.$lt}}');
     }
-    else{
-        document.getElementById('From').valueAsDate = new Date('{{filter.checkin}}');    
+    else {
+        document.getElementById('From').valueAsDate = new Date('{{filter.checkin}}');
     }
-    
-    const checkinElements = document.querySelectorAll("[id^='ind']");
-    const checkoutElements = document.querySelectorAll("[id^='outd']");    
 
-    function load_reset(){
+    const checkinElements = document.querySelectorAll("[id^='ind']");
+    const checkoutElements = document.querySelectorAll("[id^='outd']");
+
+    function load_reset() {
         window.location.href = "/entries/view/reset";
     }
 
@@ -111,6 +126,36 @@
         element.innerHTML = checkout.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
     });
 </script>
+<button type="button" class="btn btn-primary" >Open modal for @getbootstrap</button>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </html>
