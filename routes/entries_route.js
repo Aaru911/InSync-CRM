@@ -4,16 +4,16 @@ app.use(express.static('public'));
 const mongo = require('../mongodb.js');
 const {authMiddleware} = require('../middleware/auth.js');
 const {validateDateMiddleware}=require('../middleware/validateDate');
-const  {get_add_entries,post_add_entries}=require('../controller/entries_controller');
+const  {get_add_entries,post_add_entries,post_view_entries,post_view_entries_update_record}=require('../controller/entries_controller');
 
 
 var filter = {};
 var sort = {'checkin': -1};
-app.get('/entries/add',authMiddleware, get_add_entries);
+app.get('/add',authMiddleware, get_add_entries);
 
-app.post('/entries/add',authMiddleware,validateDateMiddleware, post_add_entries);
+app.post('/add',authMiddleware,validateDateMiddleware, post_add_entries);
 
-app.get('/entries/view',authMiddleware, async (req, res) => {
+app.get('/view',authMiddleware, async (req, res) => {
     try {
         const data= await mongo.enquiry.find(filter,null,{sort});
         sort_str=JSON.stringify(sort)  
@@ -27,7 +27,7 @@ app.get('/entries/view',authMiddleware, async (req, res) => {
     }
 });
 
-app.post('/entries/view',authMiddleware, async (req, res) => {
+app.post('/view',authMiddleware, async (req, res) => {
 
     var data= req.body;
 
@@ -60,42 +60,29 @@ app.post('/entries/view',authMiddleware, async (req, res) => {
           };
     }
     console.log("Filter",filter,"\n",sort);
-    res.redirect("entries/view");
+    res.redirect("/entries/view");
 });
 
-app.get('/entries/view/reset',authMiddleware, async (req, res) => {
+app.get('/view/reset',authMiddleware, async (req, res) => {
     console.log("Reset");
     filter = {};
     sort = {'checkin': -1};
     res.redirect("/entries/view");  
 });
 
-app.get('/entries/edit/:id', authMiddleware, async (req, res) => {
+app.get('/edit/:id', authMiddleware, async (req, res) => {
     try {
-        await mongo.enquiry.findOne({ _id: req.params.id }).then((data) => {
-            res.render("entries/edit", { data: data });
-        });
+        const data = await mongo.enquiry.findOne({ _id: req.params.id });
+        data.user = await mongo.user.findOne({ _id: data.user });
+        res.render("entries/edit", { data: data });
     } catch (error) {
         console.log(error);
     }
 
 });
+app.post('/entries/update_record',authMiddleware, post_view_entries_update_record);
 
-app.post('/entries/update/:id',authMiddleware,validateDateMiddleware,async (req, res) => {
-    var enquiry = req.body;
-    if(enquiry.checkin < enquiry.checkout){
-        try {
-            await mongo.enquiry.updateOne({ _id: req.params.id }, enquiry);
-        } catch (error) {
-            console.log(error);
-        }
-        res.redirect('/entries/view');
-    }else{
-        console.log("Checkin date should be less than checkout date");
-        res.redirect("/entries/edit/"+req.params.id);    
-    }
-
-});
+app.post('/entries/update/:id',authMiddleware,validateDateMiddleware,post_view_entries);
 
 app.get('/entries/delete/:id',authMiddleware, async (req, res) => {
     try {

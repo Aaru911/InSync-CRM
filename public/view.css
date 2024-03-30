@@ -109,7 +109,7 @@ select:focus {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-a {
+a,a:not([href]):not([tabindex])  {
     
     text-decoration: none;
     color: #b92323;

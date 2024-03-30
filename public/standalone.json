@@ -1,0 +1,6 @@
+{
+    "name":"InSync CRM",
+    "display":"standalone",
+    "start_url":"http://localhost/",
+    "scope":"/customer/"
+}

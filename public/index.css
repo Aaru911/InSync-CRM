@@ -1,38 +1,57 @@
-.admin-dashboard {
-    display: flex;
-    justify-content: space-between;
+html {
+    height: 100%;
+}
+body {
+    margin: 0;
+    min-height: 100%;
+}
+.item1 {grid-area: header;}
+.item2 {grid-area: menu;}
+.item3 {grid-area: main;}
+.item4 {grid-area: footer;}
+
+.item1 {
+    width: 100%;
+    background-color: #1c1c1c;
+    color: #ffffff;
+    border-top: 3px solid #000;
+    font-size: 3vb;
+}
+.item2 {
+    width: 100%;
+    background-color: #1c1c1c;
+    border-right: 2px solid #000;
+    border-top: 3px solid #000;
+    max-width: 300px;
+}
+.item3 {
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+    border-color: #000;
+    min-height: 800px;
+
+}
+.item4 {
+    width: 100%;
+    background-color: #1c1c1c;
+    color: #ffffff;
+    border-top: 3px solid #000;
+    font-size: 3vb;
+    font-family: Apple Symbols;
 }
 
-.sidebar {
-    width: 20%;
-    background-color: #f1f1f1;
-    padding: 20px;
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        'header header header header header header'
+        'menu main main main main main'
+        'footer footer footer footer footer footer';
+    background-color: white;
+    margin: 0;
+    padding: 0;
 }
 
-.content {
-    width: 80%;
-    padding: 20px;
-}
-
-.dashboard-stats {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.stat {
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 5px;
+.grid-container>div {
     text-align: center;
-    width: 30%;
-}
-
-.stat h3 {
-    margin-top: 0;
-}
-
-.stat p {
-    font-size: 24px;
-    font-weight: bold;
 }

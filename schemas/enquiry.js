@@ -29,7 +29,7 @@ const EnquirySchema = new mongoose.Schema({
     type: Date,
     dateFormat: 'DD/MM/YYYY',  
   },
-  Rates:{
+  Paid:{
     type: Number,
   },
   Pending_amount:{

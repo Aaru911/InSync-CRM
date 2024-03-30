@@ -1,60 +1,68 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>LED Control</title>
-    <link rel="stylesheet" href="../led.css">
-    
-</head>
-<body>
-    {{> navbar}}
-  <h1>LED Control</h1>
 
-<form action="/led" method="post">
-LED 1
-    <label class="switch">
-        <input type="checkbox" id="led1" name="led1">
-        <span class="slider round"></span>
-    </label>
-    <br><br>
-LED 2
-    <label class="switch">
-        <input type="checkbox" id="led2" name="led2" >
-        <span class="slider round"></span>
-    </label>
-    <br><br>
-LED 3
-    <label class="switch">
-        <input type="checkbox" id="led3" name="led3" >
-        <span class="slider round"></span>
-     </label>
-     <br>
-    <input type="submit" value="Submit">
-</form>
-<p id="IOT_Status">{{data}}</p>
+<head>
+    <title>LED Control</title>
+    <link rel="stylesheet" href="../led.css">
+    <link rel="stylesheet" href="../index.css">
+
+</head>
+
+<body>
+    <div class="grid-container">
+        <div class="item1">{{> navbar}}</div>
+        <div class="item2">{{> sidebar}}</div>
+        <div class="item3">
+            <h1>LED Control</h1>
+
+            <form action="/led" method="post">
+                LED 1
+                <label class="switch">
+                    <input type="checkbox" id="led1" name="led1" onchange="submit()">
+                    <span class="slider round"></span>
+                </label>
+                <br><br>
+                LED 2
+                <label class="switch">
+                    <input type="checkbox" id="led2" name="led2" onchange="submit()">
+                    <span class="slider round"></span>
+                </label>
+                <br><br>
+                LED 3
+                <label class="switch">
+                    <input type="checkbox" id="led3" name="led3" onchange="submit()">
+                    <span class="slider round"></span>
+                </label>
+                <br>
+            </form>
+            <p id="IOT_Status" style="display: none">{{data}}</p>
+        </div>
+        <div class="item4"><a href="http://github.com/aaru911" style="color: rgb(255, 255, 255); font-family: Apple Symbols;">@Araya Bhagat</a></div>
+    </div>
 </body>
 
 <script>
     let status = document.getElementById("IOT_Status").innerHTML;
-    let obj=JSON.parse(status);
-    
-    if(obj.led1 == "1"){
+    let obj = JSON.parse(status);
+
+    if (obj.led1 == "1") {
         document.getElementById("led1").checked = true;
     }
-    else{
+    else {
         document.getElementById("led1").checked = false;
     }
-
-    if(obj.led2 == "1"){
+    if (obj.led2 == "1") {
         document.getElementById("led2").checked = true;
     }
-    else{
+    else {
         document.getElementById("led2").checked = false;
     }
-    if(obj.led3 == "1"){
+    if (obj.led3 == "1") {
         document.getElementById("led3").checked = true;
     }
-    else{
+    else {
         document.getElementById("led3").checked = false;
     }
 </script>
+
 </html>

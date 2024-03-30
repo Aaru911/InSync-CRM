@@ -1,52 +1,20 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Admin Dashboard</title>
-<link rel="stylesheet" href="../index.css">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="manifest" href="../standalone.json">
 </head>
 
 <body>
-    {{> navbar}}
-    <div class="container">
-        <div class="admin-dashboard">
-            <aside class="sidebar">
-                <h2>Sidebar</h2>
-                <ul>
-                    <li>Dashboard</li>
-                    <li>Users</li>
-                    <li>Products</li>
-                    <li>Orders</li>
-                </ul>
-            </aside>
-
-            <main class="content">
-                <h2>Main Content</h2>
-                <div class="dashboard-stats">
-                    <div class="stat">
-                        <h3>Total Users</h3>
-                        <p>100</p>
-                    </div>
-                    <div class="stat">
-                        <h3>Total Products</h3>
-                        <p>50</p>
-                    </div>
-                    <div class="stat">
-                        <h3>Total Orders</h3>
-                        <p>200</p>
-                    </div>
-                </div>
-
-                <!-- Add more elements and graphs here -->
-                <div class="graphs">
-                    <!-- Add your graphs here -->
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <footer>
-        <!-- Footer content goes here -->
-    </footer>
-</body>
-
+<div class="grid-container">
+  <div class="item1">{{> navbar}}</div>
+  <div class="item2">{{> sidebar}}</div>
+  <div class="item3">
+    {{> dashboard/treanding}}
+    {{> dashboard/pending}}
+  </div>  
+  <div class="item4"><a href="http://github.com/aaru911" style="color: rgb(255, 255, 255); font-family: Apple Symbols;">@Araya Bhagat</a></div>
+</div>
 </html>
