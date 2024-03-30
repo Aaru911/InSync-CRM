@@ -29,7 +29,6 @@ exports.post_view_entries = async (req, res) => {
     var enquiry = req.body;
     const data = find(enquiry);
     console.log(data);
-    enquiry.Paid = 0;
     enquiry.Pending_amount = data.total;
     if (enquiry.checkin < enquiry.checkout) {
         try {
@@ -41,5 +40,24 @@ exports.post_view_entries = async (req, res) => {
     } else {
         console.log("Checkin date should be less than checkout date");
         res.redirect("/entries/edit/" + req.params.id);
+    }
+}
+
+exports.post_view_entries_update_record = async (req, res) => {
+    var data= req.body;
+    data.Paid=data.DATA;
+    console.log("Update record"+req.body); 
+    if(req.body.DATA!=null){
+        data.status=200;
+        try {
+            await mongo.enquiry.updateOne({ _id: req.body.ID},data );
+        } catch (error) {
+            console.log(error);
+        }
+        res.json(data);
+    }
+    else{
+        data.status=400;
+        res.json(data);
     }
 }

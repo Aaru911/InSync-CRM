@@ -81,7 +81,7 @@
                 <td id="outd{{@index}}">{{this.checkout}}</td>
                 <td>{{this.Paid}} / {{this.Pending_amount}}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Record</a> |
+                    <a onclick="store_record(`{{this._id}}`)">Record</a> |
                     <a href="/entries/edit/{{this._id}}">Edit</a> |
                     <a href="/entries/delete/{{this._id}}">Delete</a>
                 </td>
@@ -116,6 +116,30 @@
         window.location.href = "/entries/view/reset";
     }
 
+    async function store_record(id) {
+        var data = parseInt(prompt("Enter the record Amount", "0"));
+        //console.log("ID:"+id+"\ndata:"+data);
+        //api call
+        var res;
+        await fetch("http://localhost/entries/update_record", {
+                method: "POST",
+                body: JSON.stringify({
+                    ID: id,
+                    DATA: data,
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            }).then((response) => response.json())
+            .then((json) => res = json);
+        console.log(res);
+        if(res.status==400){
+            alert("Invalid Data: Please Enter a valid number")
+        }else{
+            window.location.reload();
+        }
+    }
+
     checkinElements.forEach((element, index) => {
         const checkin = new Date(element.innerHTML);
         element.innerHTML = checkin.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
@@ -125,37 +149,7 @@
         const checkout = new Date(element.innerHTML);
         element.innerHTML = checkout.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
     });
-</script>
-<button type="button" class="btn btn-primary" >Open modal for @getbootstrap</button>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Recipient:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
-            </div>
-        </div>
-    </div>
-</div>
+</script>
 
 </html>

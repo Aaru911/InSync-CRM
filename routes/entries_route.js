@@ -4,7 +4,7 @@ app.use(express.static('public'));
 const mongo = require('../mongodb.js');
 const {authMiddleware} = require('../middleware/auth.js');
 const {validateDateMiddleware}=require('../middleware/validateDate');
-const  {get_add_entries,post_add_entries,post_view_entries}=require('../controller/entries_controller');
+const  {get_add_entries,post_add_entries,post_view_entries,post_view_entries_update_record}=require('../controller/entries_controller');
 
 
 var filter = {};
@@ -80,6 +80,7 @@ app.get('/edit/:id', authMiddleware, async (req, res) => {
     }
 
 });
+app.post('/entries/update_record',authMiddleware, post_view_entries_update_record);
 
 app.post('/entries/update/:id',authMiddleware,validateDateMiddleware,post_view_entries);
 
