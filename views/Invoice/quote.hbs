@@ -2,37 +2,47 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="manifest" href="../standalone.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quotes</title>
 </head>
 
 <body onload='initialize()'>
-    {{> navbar}}
-    <h1>Quotes</h1>
-    <form>
-        <label for="check_in">Check-in Date:</label>
-        <input type="date" name="check_in" id="check_in">
-        <br>
-        <label for="check_out">Check-out Date:</label>
-        <input type="date" name="check_out" id="check_out">
-        <br>
-        <label for="number_of_ac_rooms">Number of AC Rooms:</label>
-        <input type="Number" name="number_of_ac_rooms" id="number_of_ac_rooms">
-        <br>
-        <label for="number_of_non_ac_rooms">Number of Non-AC Rooms:</label>
-        <input type="Number" name="number_of_non_ac_rooms" id="number_of_non_ac_rooms">
-        <br>
-        <label for="extra">Extra:</label>
-        <input type="number" name="extra" id="extra">
-        <br>
-        <br>
-        <label for="total">Total:</label>
-        <input type="number" name="total" id="total">
-        <br>
-        <input type="button" value="Submit" onclick="check()">
+    <div class="grid-container">
+        <div class="item1">{{> navbar}}</div>
+        <div class="item2">{{> sidebar}}</div>
+        <div class="item3">
+            <h1>Quotes</h1>
+            <form>
+                <label for="check_in">Check-in Date:</label>
+                <input type="date" name="check_in" id="check_in">
+                <br>
+                <label for="check_out">Check-out Date:</label>
+                <input type="date" name="check_out" id="check_out">
+                <br>
+                <label for="number_of_ac_rooms">Number of AC Rooms:</label>
+                <input type="Number" name="number_of_ac_rooms" id="number_of_ac_rooms">
+                <br>
+                <label for="number_of_non_ac_rooms">Number of Non-AC Rooms:</label>
+                <input type="Number" name="number_of_non_ac_rooms" id="number_of_non_ac_rooms">
+                <br>
+                <label for="extra">Extra:</label>
+                <input type="number" name="extra" id="extra">
+                <br>
+                <br>
+                <label for="total">Total:</label>
+                <input type="number" name="total" id="total">
+                <br>
+                <input type="button" value="Submit" onclick="check()">
 
-    </form>
+            </form>
+        </div>
+        <div class="item4"><a href="http://github.com/aaru911"
+                style="color: rgb(255, 255, 255); font-family: Apple Symbols;">@Araya Bhagat</a></div>
+    </div>
+
 </body>
 <script>
     function initialize() {

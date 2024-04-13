@@ -2,7 +2,7 @@ const app = global.router
 const {authMiddleware} = require('../middleware/auth.js');
 
 app.get('/quote',authMiddleware,(req, res) => {
-    res.render("/Invoice/quote");
+    res.render("Invoice/quote");
 });
 
 app.get('/invoices',(req, res) => {
