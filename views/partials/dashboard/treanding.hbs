@@ -4,30 +4,36 @@
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ['Age', 'Weight'],
+            ['Requests', 'Responces'],
             [8, 12],
             [4, 5.5],
             [11, 14],
             [4, 5],
             [3, 3.5],
-            [6.5, 7]
+            [6.5, 7],
+            {{!-- [Math.random() * 10, Math.random() * 10],
+            [Math.random() * 10, Math.random() * 10],
+            [Math.random() * 10, Math.random() * 10],
+            [Math.random() * 10, Math.random() * 10],
+            [Math.random() * 10, Math.random() * 10]--}}
         ]);
 
-        var options = {
-            title: 'Detailed Sales Analysis for Q1 2022',
-            legend: 'none',
-            crosshair: { trigger: 'both', orientation: 'both' },
-            trendlines: {
-                0: {
-                    type: 'polynomial',
-                    degree: 3,
-                    visibleInLegend: true,
-                }
+    var options = {
+        title: 'Detailed Sales Analysis for Q1 2022 & Future Predictions',
+        legend: 'none',
+        crosshair: { trigger: 'both', orientation: 'both' },
+        trendlines: {
+            0: {
+                type: 'polynomial',
+                degree: 3,
+                visibleInLegend: true,
             }
-        };
 
-        var chart = new google.visualization.ScatterChart(document.getElementById('polynomial2_div'));
-        chart.draw(data, options);
+        }
+    };
+
+    var chart = new google.visualization.ScatterChart(document.getElementById('polynomial2_div'));
+    chart.draw(data, options);
     }
 </script>
 

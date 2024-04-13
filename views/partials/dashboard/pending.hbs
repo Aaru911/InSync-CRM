@@ -4,13 +4,16 @@
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
+        let remaining = Math.max(0, Math.floor(Math.random() * 500000));
         var data = google.visualization.arrayToDataTable([
             ['Effort', 'Amount given'],
-            ['My all', 100],
+            ['My all', 500000],
+            ['remaining', remaining],
+
         ]);
 
         var options = {
-            title: 'Reports for Q1 2022',
+            title: 'Reports for Q1 2024',
             pieHole: 0.5,
             pieSliceTextStyle: {
                 color: 'black',

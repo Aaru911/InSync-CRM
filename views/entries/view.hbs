@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="manifest" href="../standalone.json">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Entries</title>
@@ -21,75 +24,83 @@
 </head>
 
 <body>
-    {{> navbar}}
-    <br>
-    <h1 style="margin-left: 1%;">View Entries</h1>
-    <details>
-        <summary>Search Sort Filter</summary>
-        <form action="/entries/view" method="post" class="search_sort_filter">
-            <label for="search">From</label>
-            <input type="date" name="From" id="From">
-            <label for="search">Till</label>
-            <input type="date" name="Till" id="Till">
+    <div class="grid-container">
+        <div class="item1">{{> navbar}}</div>
+        <div class="item2">{{> sidebar}}</div>
+        <div class="item3">
+            <br>
+            <h1 style="margin-left: 1%;">View Entries</h1>
+            <details>
+                <summary>Search Sort Filter</summary>
+                <form action="/entries/view" method="post" class="search_sort_filter">
+                    <label for="search">From</label>
+                    <input type="date" name="From" id="From">
+                    <label for="search">Till</label>
+                    <input type="date" name="Till" id="Till">
 
-            <label for="search">Search</label>
-            <input type="text" name="search" id="search">
+                    <label for="search">Search</label>
+                    <input type="text" name="search" id="search">
 
-            <label for="sort">Sort</label>
-            <select name="sort" id="sort">
-                <option value="name">Name</option>
-                <option value="checkin">Check-in</option>
-                <option value="checkout">Check-out</option>
-            </select>
-            <select name="order" id="order">
-                <option value="desc">Descending</option>
-                <option value="asc">Ascending</option>
-            </select>
-            <input type="submit" value="Search">
-        </form>
-        <a onclick="load_reset()" class="reset-button">Reset</a>
-    </details>
-
-
-    <br>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>NOP</th>
-                <th>AC</th>
-                <th>Non-AC</th>
-                <th>Check-in</th>
-                <th>Check-out</th>
-                <th>Paid / pending</th>
-                <th>Options</th>
-            </tr>
-        </thead>
-        <tbody>
+                    <label for="sort">Sort</label>
+                    <select name="sort" id="sort">
+                        <option value="name">Name</option>
+                        <option value="checkin">Check-in</option>
+                        <option value="checkout">Check-out</option>
+                    </select>
+                    <select name="order" id="order">
+                        <option value="desc">Descending</option>
+                        <option value="asc">Ascending</option>
+                    </select>
+                    <input type="submit" value="Search">
+                </form>
+                <a onclick="load_reset()" class="reset-button">Reset</a>
+            </details>
 
 
-            <tr>
-                {{#each data}}
-            <tr>
-                <td>{{user.name}}</td>
-                <td>{{user.phone}}</td>
-                <td>{{this.nop}}</td>
-                <td>{{this.ac}}</td>
-                <td>{{this.nonac}}</td>
-                <td id="ind{{@index}}">{{this.checkin}}</td>
-                <td id="outd{{@index}}">{{this.checkout}}</td>
-                <td>{{this.Paid}} / {{this.Pending_amount}}</td>
-                <td>
-                    <a onclick="store_record(`{{this._id}}`)">Record</a> |
-                    <a href="/entries/edit/{{this._id}}">Edit</a> |
-                    <a href="/entries/delete/{{this._id}}">Delete</a>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-    <p id="p_sort" style="display: none;">{{sort}}</p>
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>NOP</th>
+                        <th>AC</th>
+                        <th>Non-AC</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Paid / pending</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    <tr>
+                        {{#each data}}
+                    <tr>
+                        <td>{{user.name}}</td>
+                        <td>{{user.phone}}</td>
+                        <td>{{this.nop}}</td>
+                        <td>{{this.ac}}</td>
+                        <td>{{this.nonac}}</td>
+                        <td id="ind{{@index}}">{{this.checkin}}</td>
+                        <td id="outd{{@index}}">{{this.checkout}}</td>
+                        <td>{{this.Paid}} / {{this.Pending_amount}}</td>
+                        <td>
+                            <a class="table-option" onclick="store_record(`{{this._id}}`)">Record</a> |
+                            <a class="table-option" href="/entries/edit/{{this._id}}">Edit</a> |
+                            <a class="table-option" href="/entries/delete/{{this._id}}">Delete</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <p id="p_sort" style="display: none;">{{sort}}</p>
+        </div>
+        <div class="item4"><a href="http://github.com/aaru911"
+                style="color: rgb(255, 255, 255); font-family: Apple Symbols;">@Araya Bhagat</a></div>
+    </div>
+
 </body>
 <script>
 
@@ -122,20 +133,20 @@
         //api call
         var res;
         await fetch("http://localhost/entries/update_record", {
-                method: "POST",
-                body: JSON.stringify({
-                    ID: id,
-                    DATA: data,
-                }),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            }).then((response) => response.json())
+            method: "POST",
+            body: JSON.stringify({
+                ID: id,
+                DATA: data,
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then((response) => response.json())
             .then((json) => res = json);
         console.log(res);
-        if(res.status==400){
+        if (res.status == 400) {
             alert("Invalid Data: Please Enter a valid number")
-        }else{
+        } else {
             window.location.reload();
         }
     }

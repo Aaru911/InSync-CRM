@@ -2,10 +2,13 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="manifest" href="../standalone.json">
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Customer</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -21,52 +24,58 @@
 </head>
 
 <body>
-    {{> navbar}}
-    <br>
-    <h1 style="margin-left: 1%;">View Customer</h1>
-    <details>
-        <summary>Search Sort Filter</summary>
-         <form action="/customer/view" method="post" class="search_sort_filter">
-            <label for="search">Search</label>
-            <input type="text" name="search" id="search" placeholder="Search">
-            <input type="submit" value="Search">
-        </form>
-    <a onclick="load_reset()" class="reset-button">Reset</a>
-    </details>
-       
+    <div class="grid-container">
+        <div class="item1">{{> navbar}}</div>
+        <div class="item2">{{> sidebar}}</div>
+        <div class="item3">
+            <br>
+            <h1 style="margin-left: 1%;">View Customer</h1>
+            <details>
+                <summary>Search Sort Filter</summary>
+                <form action="/customer/view" method="post" class="search_sort_filter">
+                    <label for="search">Search</label>
+                    <input type="text" name="search" id="search" placeholder="Search">
+                    <input type="submit" value="Search">
+                </form>
+                <a onclick="load_reset()" class="reset-button">Reset</a>
+            </details>
 
-    <br>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each data}}
-            <tr>
-                <td><a href="/customer/history/{{this.id}}">{{this.name}}</a></td>
-                <td>{{this.phone}}</td>
-                <td>{{this.email}}</td>
-                <td>{{this.address}}</td>
-                <td>
-                    <a href="/customer/edit/{{this._id}}">Edit</a> |
-                    <a href="/customer/delete/{{this._id}}">Delete</a>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr>
+                        <td><a class="table-option" href="/customer/history/{{this.id}}">{{this.name}}</a></td>
+                        <td>{{this.phone}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.address}}</td>
+                        <td>
+                            <a class="table-option" href="/customer/edit/{{this._id}}">Edit</a> |
+                            <a class="table-option" href="/customer/delete/{{this._id}}">Delete</a>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="item4"><a href="http://github.com/aaru911"
+                style="color: rgb(255, 255, 255); font-family: Apple Symbols;">@Araya Bhagat</a></div>
+    </div>
+
 
 </body>
 <script>
-    function load_reset(){
+    function load_reset() {
         window.location.href = "/customer/view/reset";
     }
 </script>
-
-
 </html>
